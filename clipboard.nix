@@ -16,7 +16,7 @@ pkgs.stdenv.mkDerivation {
   ];
 
   buildPhase = ''
-    gcc main.c clipboard_x11.c $(pkg-config --cflags --libs xcb) -o clipboard
+    gcc main.c include/clipboard_x11.c $(pkg-config --cflags --libs xcb) -o clipboard
   '';
 
   installPhase = ''

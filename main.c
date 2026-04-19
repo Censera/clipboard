@@ -2,7 +2,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <err.h>
-# include "libclipboard.h"
+# include "include/libclipboard.h"
 
 int	free_to_copy( const char *src )
 {
@@ -34,7 +34,7 @@ int	main( int argc, char** argv )
 	else
 	{
 		char buf[32000];
-		size_t read = fread(buf, 1, sizeof(buf) - 1, stdin);
+		size_t read = fread(buf, 1, sizeof buf - 1, stdin);
 
 		if (0 == read)
 		{
