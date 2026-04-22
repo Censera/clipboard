@@ -4,7 +4,7 @@
 # include <err.h>
 # include "include/libclipboard.h"
 
-int	free_to_copy( const char *src )
+int	available_to_copy( const char *src )
 {
 	if ( 0 == fork() )
 	{	
@@ -33,18 +33,17 @@ int	main( int argc, char** argv )
 	}
 	else
 	{
-		char buf[32000];
-		size_t read = fread(buf, 1, sizeof buf - 1, stdin);
+		char buf[32768];
+		size_t r = fread(buf, 1, sizeof buf - 1, stdin);
 
-		if (0 == read)
+		if (0 == r)
 		{
 			errx(1, "No source to copy from");
 		}
 
-		buf[read];
+		buf[r];
 		src = buf;
 	}
 
-	int ret = free_to_copy(src);
-	return ret;
+	return available_to_copy(src);
 }

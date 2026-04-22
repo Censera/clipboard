@@ -18,19 +18,7 @@
 /** Minor version of libclipboard **/
 #define LIBCLIPBOARD_VERSION_MINOR @LIBCLIPBOARD_VERSION_MINOR@
 
-/** Are we building the Win32 backend? **/
-#cmakedefine LIBCLIPBOARD_BUILD_WIN32
-
 /** Are we building the X11 backend? **/
-#cmakedefine LIBCLIPBOARD_BUILD_X11
-
-/** Are we building the Cocoa (OS X) backend? **/
-#cmakedefine LIBCLIPBOARD_BUILD_COCOA
-
-/** Are we building a shared library? **/
-#cmakedefine LIBCLIPBOARD_BUILD_SHARED
-
-/** Are we using the stdcall calling convention? **/
-#cmakedefine LIBCLIPBOARD_USE_STDCALL
+#define LIBCLIPBOARD_BUILD_X11
 
 #endif /* _LIBCLIPBOARD_CONFIG_H */
