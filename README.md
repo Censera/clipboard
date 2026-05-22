@@ -1,18 +1,27 @@
 # Clipboard
 
-Clipboard is a CLI tool that copies another tool's output to a clipboard manager in your system (Linux)
+Clipboard is a minimal CLI utility written in C. It allows you to pipe streams or pass arguments directly into an available system clipboard.
 
-Copy a string to the clipboard manager
+
+The utility requires `libclipboard` installed on your system.
+
+- Ubuntu/Debian: `sudo apt install libclipboard-dev`
+- Arch Linux: `sudo pacman -S libclipboard`
+
+## Usage
+
+1. Copying via arguments
 
 ```bash
-clipboard "Copy me."
+./clipboard "Copy me."
 ```
-Copy the output of a command
+
+2. Copying via piping
 
 ```bash
-echo "hello" | clipboard
+echo "Hello, me!" | ./clipboard
 ```
 
 ```bash
-cat file.txt | clipboard
+cat file.txt | ./clipboard
 ```
