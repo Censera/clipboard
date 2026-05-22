@@ -42,7 +42,7 @@ int	main(int argc, char** argv)
 			errx(1, "No source to copy from");
 		}
 
-		buf[ret];
+		buf[ret] = '\0';
 		src = buf;
 	}
 
