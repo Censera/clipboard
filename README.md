@@ -8,17 +8,19 @@ The utility requires `libclipboard` installed on your system.
 - Ubuntu/Debian: `sudo apt install libclipboard-dev`
 - Arch Linux: `sudo pacman -S libclipboard`
 
-- NixOs:
+- NixOS:
 
-```bash
-nix develop
-```
+	Enter an isolated developement environment: 
 
-Once inside the development shell, run:
+	```bash
+	nix develop
+	```
 
-```bash
-gcc main.c -lclipboard -o bin/clipboard
-```
+	Once inside the development shell, run:
+
+	```bash
+	gcc main.c -lclipboard -o bin/clipboard
+	```
 
 ## Usage
 
