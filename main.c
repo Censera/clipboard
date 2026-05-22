@@ -7,20 +7,29 @@
 
 int	available_to_copy(const char *src)
 {
-	if (0 == fork())
-	{	
+	pid_t	pid = fork();
+
+	if (pid < 0)
+	{
+		errx(1, "fork fails");
+	}
+	else if (pid == 0)
+	{
+
 		clipboard_c *cb = clipboard_new(NULL);
 		if (NULL == cb)
 		{
 			errx(1, "Failed to open clipboard!");
 		}
-		clipboard_set_text_ex( cb, src, -1, LCB_CLIPBOARD );
+
+		clipboard_set_text_ex(cb, src, -1, LCB_CLIPBOARD);
 
 		usleep(100000);
 
 		clipboard_free(cb);
 		exit(0);
 	}
+
 	return (0);
 }
 
@@ -34,7 +43,7 @@ int	main(int argc, char** argv)
 	}
 	else
 	{
-		char	buf[32768];
+		char	buf[32000];
 		size_t ret = fread(buf, 1, sizeof buf - 1, stdin);
 
 		if (0 == ret)
