@@ -43,15 +43,42 @@ int	main(int argc, char** argv)
 	}
 	else
 	{
-		char	buf[32000];
-		size_t ret = fread(buf, 1, sizeof buf - 1, stdin);
+		size_t	cap = 4096;
+		size_t	read = 0;
+		char	*buf = malloc(cap);
 
-		if (0 == ret)
+		if (buf == NULL)
+			errx(1, "Out of memory");
+
+		while (1)
 		{
-			errx(1, "No source to copy from");
+			size_t	ret = fread(buf, 1, sizeof buf - 1, stdin);
+
+			if (ret == 0)
+			{
+				if (ferror(stdin))
+					errx(1, "Couldn't read");
+				break;
+			}
+
+			read += r;
+
+			if (read >= cap - 1)
+			{
+				cap *= 2;
+				char	*new_buf = realloc(buf, cap);
+
+				if (new_buf == NULL)
+				{
+					free(buf);
+					errx(1, "Out of memory while resizing");
+				}
+
+				buf = new_buf;
+			}
 		}
 
-		buf[ret] = '\0';
+		buf[read] = '\0';
 		src = buf;
 	}
 
