@@ -3,7 +3,7 @@
 #	include	<string.h>
 #	include	<err.h>
 
-#	include	"include/libclipboard.h"
+#	include	"../inc/libclipboard.h"
 
 int	available_to_copy(const char *src)
 {
