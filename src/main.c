@@ -1,6 +1,8 @@
 #	include	<unistd.h>
 #	include	<stdio.h>
 #	include	<string.h>
+#	include	<stdlib.h>
+#	include	<stdbool.h>
 #	include	<err.h>
 
 #	include	"../inc/libclipboard.h"
@@ -15,6 +17,7 @@ int	available_to_copy(const char *src)
 	}
 	else if (pid == 0)
 	{
+		fclose(stderr);
 
 		clipboard_c *cb = clipboard_new(NULL);
 		if (NULL == cb)
@@ -47,7 +50,7 @@ int	main(int argc, char** argv)
 			errx(1, "No input");
 
 		size_t	cap = 4096;
-		size_t	read = 0;
+		size_t	bytes_read = 0;
 		char	*buf = malloc(cap);
 
 		if (buf == NULL)
@@ -55,8 +58,8 @@ int	main(int argc, char** argv)
 
 		while (1)
 		{
-			size_t	space_left = cap - read -1;
-			size_t	input = fread(buf, 1, space_left, stdin);
+			size_t	space_left = cap - bytes_read - 1;
+			size_t	input = fread(buf + bytes_read, 1, space_left, stdin);
 
 			if (input == 0)
 			{
@@ -65,9 +68,9 @@ int	main(int argc, char** argv)
 				break;
 			}
 
-			read += input;
+			bytes_read += input;
 
-			if (read >= cap - 1)
+			if (bytes_read >= cap - 1)
 			{
 				cap *= 2;
 				char	*new_buf = realloc(buf, cap);
@@ -82,9 +85,40 @@ int	main(int argc, char** argv)
 			}
 		}
 
-		buf[read] = '\0';
+		buf[bytes_read] = '\0';
 		src = buf;
 	}
+
+	size_t	words = 0;
+	size_t	lines = 0;
+	bool	is_space = true;
+	const char	*p = src;
+
+	while (*p != 0)
+	{
+		if (*p == '\n')
+		{
+			lines++;
+		}
+
+		if (*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r')
+		{
+			is_space = true;
+		}
+		else if (is_space)
+		{
+			is_space = false;
+			words++;
+		}
+		p++;
+	}
+
+	if (p > src && *(p - 1) != '\n')
+	{
+		lines++;
+	}
+
+	printf("Processed:\t[\033[0;35m%zu\033[0m] Words\n\t\t[\033[0;35m%zu\033[0m] Lines\n", words, lines);
 
 	return available_to_copy(src);
 }
