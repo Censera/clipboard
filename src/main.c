@@ -122,9 +122,9 @@ int	main(int argc, char** argv)
 	}
 
 	printf("Processed:\t");
-	printf("[\033[0;35m%zu\033[0m] Characters\n", chars);
-	printf("\t\t[\033[0;35m%zu\033[0m] Words\n", words);
-	printf("\t\t[\033[0;35m%zu\033[0m] Lines\n", lines);
+	printf("Characters: \033[0;33m%zu\033[0m\n", chars);
+	printf("\t\tWords: \033[0;33m%zu\033[0m\n", words);
+	printf("\t\tLines: \033[0;33m%zu\033[0m\n", lines);
 
 	return available_to_copy(src);
 }
