@@ -89,6 +89,7 @@ int	main(int argc, char** argv)
 		src = buf;
 	}
 
+	size_t	chars = 0;
 	size_t	words = 0;
 	size_t	lines = 0;
 	bool	is_space = true;
@@ -110,6 +111,8 @@ int	main(int argc, char** argv)
 			is_space = false;
 			words++;
 		}
+
+		chars++;
 		p++;
 	}
 
@@ -118,7 +121,10 @@ int	main(int argc, char** argv)
 		lines++;
 	}
 
-	printf("Processed:\t[\033[0;35m%zu\033[0m] Words\n\t\t[\033[0;35m%zu\033[0m] Lines\n", words, lines);
+	printf("Processed:\t");
+	printf("[\033[0;35m%zu\033[0m] Characters\n", chars);
+	printf("\t\t[\033[0;35m%zu\033[0m] Words\n", words);
+	printf("\t\t[\033[0;35m%zu\033[0m] Lines\n", lines);
 
 	return available_to_copy(src);
 }
