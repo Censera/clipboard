@@ -19,9 +19,14 @@ The utility requires `libclipboard` installed on your system.
 	Once inside the development shell, run:
 
 	```bash
-	gcc src/main.c -lclipboard -o bin/clipboard
+	clang src/main.c -lclipboard -o bin/clipboard
 	```
-
+	
+	or:
+	
+	```bash
+	clang src/main.c inc/clipboard_x11.c -lxcb -o bin/clipboard
+	```
 ## Usage
 
 1. Copying via arguments
