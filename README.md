@@ -1,6 +1,6 @@
-# Clipboard
+# clipboard
 
-Clipboard is a minimal CLI utility written in C. It allows you to pipe streams or pass arguments directly into an available system clipboard.
+`clipboard` is a minimal CLI utility written in C. It allows you to pipe streams or pass arguments directly into an available system clipboard.
 
 
 The utility requires `libclipboard` installed on your system.
