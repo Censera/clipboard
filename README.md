@@ -1,46 +1,54 @@
 # clipboard
 
-`clipboard` is a minimal CLI utility written in C. It allows you to pipe streams or pass arguments directly into an available system clipboard.
+clipboard is a command-line utility written in C. It writes standard input or command-line arguments to the system clipboard.
 
+## Building
 
-The utility requires `libclipboard` installed on your system.
+Building requires a C compiler and `libclipboard`.
 
-- Ubuntu/Debian: `sudo apt install libclipboard-dev`
-- Arch Linux: `sudo pacman -S libclipboard`
+__Install dependencies:__
 
-- NixOS:
+Ubuntu/Debian:
 
-	Enter an isolated development environment: 
+```ts
+sudo apt install libclipboard-dev`
+```
 
-	```nix
-	nix develop
-	```
+Arch Linux:
 
-	Once inside the development shell, run:
+```ts
+sudo pacman -S libclipboard`
+```
 
-	```bash
-	clang src/main.c -lclipboard -o bin/clipboard
-	```
-	
-	or:
-	
-	```bash
-	clang src/main.c inc/clipboard_x11.c -lxcb -o bin/clipboard
-	```
+NixOS: Use the provided development shell
+
+```nix
+nix develop
+```
+
+__Compile the binary:__
+
+```ts
+clang src/main.c -lclipboard -o bin/clipboard
+```
+
+Alternatively, compile with __X11__ support directly via __XCB__:
+
+```ts
+clang src/main.c inc/clipboard_x11.c -lxcb -o bin/clipboard
+```
+
 ## Usage
 
-1. Copying via arguments
+Write a string argument to the clipboard:
 
-```bash
+```ts
 ./bin/clipboard "Copy me."
 ```
 
-2. Copying via piping
+Write standard input to the clipboard:
 
-```bash
+```ts
 echo "Hello, me!" | ./bin/clipboard
-```
-
-```bash
 cat file.txt | ./bin/clipboard
 ```
